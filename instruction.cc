@@ -19,6 +19,22 @@ char *Instruction::getOperand1() {
 char *Instruction::getOperand2() {
   return this->operand2;
 }
+
+int split(const string &text, char sep) {
+    vector<string> tokens;
+    size_t start = 0, end = 0;
+    while ((end = text.find(sep, start)) != string::npos) {
+        if (end != start) {
+          tokens.push_back(text.substr(start, end - start));
+        }
+        start = end + 1;
+    }
+    if (end != start) {
+       tokens.push_back(text.substr(start));
+    }
+    return tokens.size();
+}
+
 //retira o comentario e guarda a instruçao
 Instruction::Instruction(string instruction) {
   string::size_type comment = instruction.find(";");
@@ -48,14 +64,13 @@ void Instruction::decodeOpcode() {
   opcode_decoded = 1;
   no_label_instruction = instruction_text.substr(label_length + 1);
   sscanf(no_label_instruction.c_str(), "%s", opcode);
-  if (!strcmp(opcode, "DUMP") ||
-      !strcmp(opcode, "RET")  ||
-      !strcmp(opcode, "HLT"))
+  if (!strcmp(opcode, "exit") ||
+      !strcmp(opcode, "return"))
     this->size = 1;
-  else if (no_label_instruction.find(",") != string::npos)
-    this->size = 3;
-  else
+if(split(no_label_instruction,' ')  == 2 || opcode == ".data")
     this->size = 2;
+  else if (split(no_label_instruction,' ')  == 3)
+    this->size = 3;
 }
 
 void Instruction::decodeOperands() {
@@ -69,7 +84,7 @@ void Instruction::decodeOperands() {
   } else if (size == 3) {
     operand1 = (char *)malloc(max_label_length*sizeof(char));
     operand2 = (char *)malloc(max_label_length*sizeof(char));
-    sscanf(no_label_instruction.c_str(), "%*s %[^, ] %*[, ] %s",
+    sscanf(no_label_instruction.c_str(), "%*s %s %s",
         operand1, operand2);
   }
 }

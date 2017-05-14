@@ -2,25 +2,26 @@
 #include <cstring>
 #include "operation_decoder.h"
 int16_t OperationDecoder::decodeOpcode(char *opcode) {
-  if (!strcmp(opcode, ("MOV")))        return 0x0100;
-  else if (!strcmp(opcode, ("ADD")))   return 0x0200;
-  else if (!strcmp(opcode, ("SUB")))   return 0x0300;
-  else if (!strcmp(opcode, ("MUL")))   return 0x0400;
-  else if (!strcmp(opcode, ("DIV")))   return 0x0500;
-  else if (!strcmp(opcode, ("AND")))   return 0x0600;
-  else if (!strcmp(opcode, ("NOT")))   return 0x0700;
-  else if (!strcmp(opcode, ("OR")))    return 0x0800;
-  else if (!strcmp(opcode, ("CMP")))   return 0x0900;
-  else if (!strcmp(opcode, ("JMP")))   return 0x0A00;
-  else if (!strcmp(opcode, ("JZ")))    return 0x0B00;
-  else if (!strcmp(opcode, ("JS")))    return 0x0C00;
-  else if (!strcmp(opcode, ("CALL")))  return 0x0D00;
-  else if (!strcmp(opcode, ("RET")))   return 0x0E00;
-  else if (!strcmp(opcode, ("PUSH")))  return 0x0F00;
-  else if (!strcmp(opcode, ("POP")))   return 0x1000;
-  else if (!strcmp(opcode, ("DUMP")))  return 0x1100;
-  else if (!strcmp(opcode, ("READ")))  return 0x1200;
-  else if (!strcmp(opcode, ("WRITE"))) return 0x1300;
-  else if (!strcmp(opcode, ("HLT")))   return 0x1400;
+  if (!strcmp(opcode, ("exit")))          return 0x0000;  //0  | 0 operandos
+  else if (!strcmp(opcode, ("loadi")))    return 0x0800;  //1  | 1 operando
+  else if (!strcmp(opcode, ("storei")))   return 0x1000;  //2  | 2 operando(imediato)
+  else if (!strcmp(opcode, ("add")))      return 0x1800;  //3  | 2 operandos
+  else if (!strcmp(opcode, ("subtract"))) return 0x2000;  //4  | 2 operandos
+  else if (!strcmp(opcode, ("multiply"))) return 0x2800;  //5  | 2 operandos
+  else if (!strcmp(opcode, ("divide")))   return 0x3000;  //6  | 2 operandos
+  else if (!strcmp(opcode, ("jump")))     return 0x3800;  //7  | 2 operandos(memoria)
+  else if (!strcmp(opcode, ("jmpz")))     return 0x4000;  //8  | 2 operandos(memoria)
+  else if (!strcmp(opcode, ("jmpn")))     return 0x4800;  //9  | 2 operandos(memoria)
+  else if (!strcmp(opcode, ("move")))     return 0x5000;  //10 | 2 operandos
+  else if (!strcmp(opcode, ("load")))     return 0x5800;  //11 | 2 operandos
+  else if (!strcmp(opcode, ("store")))    return 0x6000;  //12 | 2 operandos
+  else if (!strcmp(opcode, ("loadc")))    return 0x6800;  //13 | 2 operandos
+  else if (!strcmp(opcode, ("clear")))    return 0x7000;  //14 | 1 operando
+  else if (!strcmp(opcode, ("negate")))   return 0x7800;  //15 | 2 operandos
+  else if (!strcmp(opcode, ("push")))     return 0x8000;  //16 | 1 operando
+  else if (!strcmp(opcode, ("pop")))      return 0x8800;  //17 | 1 operando
+  else if (!strcmp(opcode, ("addi")))     return 0x9000;  //18 | 2 operandos(memoria)
+  else if (!strcmp(opcode, ("call")))     return 0x9800;  //19 | 1 operando (especial)bits n usados no inicio
+  else if (!strcmp(opcode, ("return")))   return 0xA000;  //20 | 0 operandos
   return 0;
 }

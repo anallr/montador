@@ -17,10 +17,10 @@ Assembler::~Assembler() {
 void Assembler::firstPass() {
   unsigned int position = 0;
   unsigned int data_position = 0;
-  fwrite(&position, 2, 1, output_file);
+  fwrite(&position, 2, 1, output_file);//acho q n precisa
   string instruction;
   while (getline(*input_file, instruction)) {
-    if (instruction.empty()) continue;
+    if (instruction.empty()) continue;// nunca acontece
     int i = 0;
     while (instruction[i] == ' ') ++i;
     //Salta as instruções que são só comentário
@@ -29,7 +29,7 @@ void Assembler::firstPass() {
     instructions.push_back(ins);
     ins->decodeLabel();
     ins->decodeOpcode();
-    if (!strcmp(ins->getOpcode(), "DW")) {
+    if (ins.find(".data") != npos)) {
       instructions.pop_back();
       ins->decodeOperands();
       dataTable.insert(ins->getOperand1(), data_position++);
