@@ -19,6 +19,7 @@ void Assembler::firstPass() {
   unsigned int data_position = 0;
   fwrite(&position, 2, 1, output_file);//acho q n precisa
   string instruction;
+  int i = 0;
   while (getline(*input_file, instruction)) {
     if (instruction.empty()) continue;// nunca acontece
     int i = 0;
@@ -40,12 +41,15 @@ void Assembler::firstPass() {
       position += ins->getSize();
     }
   }
+  this->posicao = i;
+  i++;
   dataTable.setShift(position);
   operandDecoder = new OperandDecoder(labelTable, dataTable, position);
 }
 
 void Assembler::secondPass() {
   for (auto it = instructions.begin(); it != instructions.end(); ++it) {
+    fprintf(output_file, "%x  : ", it->posicao);
     (*it)->decodeOperands();
     char *opcode = (*it)->getOpcode(),
          *operand1 = (*it)->getOperand1(),
@@ -63,9 +67,10 @@ void Assembler::secondPass() {
     }
   }
 }
-void Assembler::printLabels() {
+/*void Assembler::printLabels() {
   printf("LABELS:\n");
   labelTable.printLabels();
   printf("VARIABLES:\n");
   dataTable.printLabels();
+*/
 }

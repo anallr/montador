@@ -13,7 +13,7 @@ class Assembler {
     ~Assembler();
     void firstPass();
     void secondPass();
-    void printLabels();
+    //void printLabels();
   private:
     SymbolTable labelTable;
     SymbolTable dataTable;

@@ -20,6 +20,7 @@ class Instruction {
     char opcode[6];
     string label;
     char *operand1;
+    int posicao;
   private:
     int label_decoded;
     int opcode_decoded;
