@@ -16,15 +16,15 @@ class Instruction {
     void decodeLabel();
     void decodeOpcode();
     void decodeOperands();
-  private:
+    string no_label_instruction;
+    char opcode[6];
     int label_decoded;
+  private:
     int opcode_decoded;
     string instruction_text;
-    string no_label_instruction;
     string label;
     static const int max_label_length = 100;
     int label_length;
-    char opcode[6];
     char *operand1;
     char *operand2;
     unsigned int size;

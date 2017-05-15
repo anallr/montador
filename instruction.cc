@@ -2,6 +2,7 @@
 #include <cstring>
 #include <iostream>
 #include <cinttypes>
+#include <vector>
 #include "instruction.h"
 using namespace std;
 string Instruction::getLabel() {
@@ -64,10 +65,11 @@ void Instruction::decodeOpcode() {
   opcode_decoded = 1;
   no_label_instruction = instruction_text.substr(label_length + 1);
   sscanf(no_label_instruction.c_str(), "%s", opcode);
+  string comparar = opcode;
   if (!strcmp(opcode, "exit") ||
       !strcmp(opcode, "return"))
     this->size = 1;
-if(split(no_label_instruction,' ')  == 2 || opcode == ".data")
+if(split(no_label_instruction,' ')  == 2 || comparar.compare(".data:") != 0)
     this->size = 2;
   else if (split(no_label_instruction,' ')  == 3)
     this->size = 3;

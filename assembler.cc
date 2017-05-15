@@ -29,10 +29,11 @@ void Assembler::firstPass() {
     instructions.push_back(ins);
     ins->decodeLabel();
     ins->decodeOpcode();
-    if (ins.find(".data") != npos)) {
+    if (ins->no_label_instruction.find(".data") != string::npos) {
       instructions.pop_back();
       ins->decodeOperands();
       dataTable.insert(ins->getOperand1(), data_position++);
+      valorImediato[*(new string(ins->label_decoded))] = Instruction->operand1;
     } else {
       if (!ins->getLabel().empty())
         labelTable.insert(ins->getLabel(), position);
@@ -42,25 +43,22 @@ void Assembler::firstPass() {
   dataTable.setShift(position);
   operandDecoder = new OperandDecoder(labelTable, dataTable, position);
 }
+
 void Assembler::secondPass() {
   for (auto it = instructions.begin(); it != instructions.end(); ++it) {
     (*it)->decodeOperands();
     char *opcode = (*it)->getOpcode(),
          *operand1 = (*it)->getOperand1(),
          *operand2 = (*it)->getOperand2();
-    //printf("%s %s %s\n", opcode, operand1, operand2);
     int16_t first_halfword = operationDecoder.decodeOpcode(opcode)
       + operandDecoder->getOperandsType(operand1, operand2);
-    //printf("%04X\n", first_halfword);
     fwrite(&first_halfword, 2, 1, output_file);
     if (operand1) {
       int second_halfword = operandDecoder->decodeOperand(operand1);
-      //printf("%04X\n", second_halfword);
       fwrite(&second_halfword, 2, 1, output_file);
     }
     if (operand2) {
       int third_halfword = operandDecoder->decodeOperand(operand2);
-      //printf("%04X\n", third_halfword);
       fwrite(&third_halfword, 2, 1, output_file);
     }
   }
