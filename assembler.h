@@ -22,6 +22,6 @@ class Assembler {
     ifstream *input_file;
     FILE *output_file;
     vector<Instruction *> instructions;
-    map<string, int> valorImediato;
+    map<string, string> valorImediato;
 };
 #endif

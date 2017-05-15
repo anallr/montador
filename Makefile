@@ -1,8 +1,7 @@
 CC=g++
 CFLAGS=-c -g -std=c++11 -Wall -Werror -Wextra
 main: montador.o operand_decoder.o symbol_table.o instruction.o assembler.o operation_decoder.o
-	$(CC) montador.o operand_decoder.o symbol_table.o instruction.o assembler.o operation_decoder.o -o ../montador
-montador.o: montador.cc
+	$(CC) montador.o operand_decoder.o symbol_table.o instruction.o assembler.o operation_decoder.o -o a.out
 	$(CC) montador.cc $(CFLAGS)
 operand_decoder.o: operand_decoder.cc
 	$(CC) operand_decoder.cc $(CFLAGS)

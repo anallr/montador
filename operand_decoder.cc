@@ -20,15 +20,16 @@ int OperandDecoder::is_immediate(char *operand) {
   return operand[0] == '0';
 }
 int OperandDecoder::is_reg(char *operand) {
-  if (!strcmp(operand, "AL"))  return 1;
-  else if (!strcmp(operand, "AH"))  return 1;
-  else if (!strcmp(operand, "AX"))  return 1;
-  else if (!strcmp(operand, "BH"))  return 1;
-  else if (!strcmp(operand, "BL"))  return 1;
-  else if (!strcmp(operand, "BX"))  return 1;
-  else if (!strcmp(operand, "CL"))  return 1;
-  else if (!strcmp(operand, "CH"))  return 1;
-  else if (!strcmp(operand, "CX"))  return 1;
+  if (!strcmp(operand, "R0"))  return 1;
+  else if (!strcmp(operand, "R1"))  return 1;
+  else if (!strcmp(operand, "R2"))  return 1;
+  else if (!strcmp(operand, "R3"))  return 1;
+  else if (!strcmp(operand, "R4"))  return 1;
+  else if (!strcmp(operand, "R5"))  return 1;
+  else if (!strcmp(operand, "R6"))  return 1;
+  else if (!strcmp(operand, "R7"))  return 1;
+  else if (!strcmp(operand, "R8"))  return 1;
+  else if (!strcmp(operand, "R9"))  return 1;
   return 0;
 }
 int8_t OperandDecoder::getOperandsType(char *operand1, char *operand2) {
@@ -50,15 +51,16 @@ int16_t OperandDecoder::decodeOperand(char *operand) {
     else
       return dataTable.getLabelPosition(*(new string(operand)));
   else if (operand[0] == '0')       return stringToInt(operand);
-  else if (!strcmp(operand, "AL"))  return 0;
-  else if (!strcmp(operand, "AH"))  return 1;
-  else if (!strcmp(operand, "AX"))  return 2;
-  else if (!strcmp(operand, "BH"))  return 3;
-  else if (!strcmp(operand, "BL"))  return 4;
-  else if (!strcmp(operand, "BX"))  return 5;
-  else if (!strcmp(operand, "CL"))  return 6;
-  else if (!strcmp(operand, "CH"))  return 7;
-  else if (!strcmp(operand, "CX"))  return 8;
+  else if (!strcmp(operand, "R0"))  return 1;
+  else if (!strcmp(operand, "R1"))  return 1;
+  else if (!strcmp(operand, "R2"))  return 1;
+  else if (!strcmp(operand, "R3"))  return 1;
+  else if (!strcmp(operand, "R4"))  return 1;
+  else if (!strcmp(operand, "R5"))  return 1;
+  else if (!strcmp(operand, "R6"))  return 1;
+  else if (!strcmp(operand, "R7"))  return 1;
+  else if (!strcmp(operand, "R8"))  return 1;
+  else if (!strcmp(operand, "R9"))  return 1;
   return 0;
 }
 int16_t OperandDecoder::stringToInt(char *op) {

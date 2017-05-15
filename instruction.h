@@ -18,14 +18,14 @@ class Instruction {
     void decodeOperands();
     string no_label_instruction;
     char opcode[6];
-    int label_decoded;
+    string label;
+    char *operand1;
   private:
+    int label_decoded;
     int opcode_decoded;
     string instruction_text;
-    string label;
     static const int max_label_length = 100;
     int label_length;
-    char *operand1;
     char *operand2;
     unsigned int size;
 };

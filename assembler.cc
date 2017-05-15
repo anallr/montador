@@ -33,7 +33,7 @@ void Assembler::firstPass() {
       instructions.pop_back();
       ins->decodeOperands();
       dataTable.insert(ins->getOperand1(), data_position++);
-      valorImediato[*(new string(ins->label_decoded))] = Instruction->operand1;
+      valorImediato[*(new string(ins->label))] = ins->operand1;
     } else {
       if (!ins->getLabel().empty())
         labelTable.insert(ins->getLabel(), position);
